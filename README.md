@@ -12,5 +12,5 @@
 </p>
 
 <div align = "center">
-   <img src="/>
+   <img src="https://ludslvaz.github.io/Ecommerce-flowers/"/>
 </div>
