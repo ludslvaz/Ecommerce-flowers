@@ -19,7 +19,7 @@ footer {
 }
 .footer-col h4 {
     font-size: 18px;
-    text-transform: capitalize;
+    text-transform: capitalize; /*a primeira letra de cada palavra seja transformada em maiúscula*/
     margin-bottom: 30px;
     font-weight: 500;
     position: relative;
@@ -35,9 +35,10 @@ footer {
     box-sizing: border-box;
     width: 50px;
 }
+/*Espaçamento entre as palavras*/
 .footer-col ul li:not(:last-child) {
     margin-bottom: 10px;
-}
+} 
 .footer-col ul li a{
     font-size: 16px;
     text-transform: capitalize;
@@ -61,6 +62,7 @@ footer {
     line-height: 40px;
     border-radius: 50%;
     color: var(--text-color);
+    /* transition: [propriedades] [duração] [função-de-tempo]; */
     transition: all 0.5s ease;
 }
 .footer-col .social-links a:hover {
