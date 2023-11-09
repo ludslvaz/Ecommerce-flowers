@@ -6,7 +6,7 @@ let closeCart = document.querySelector('#close-cart')
 // Open Cart
 cartIcon.onclick = () => {
     cart.classList.add("active")
-}
+}         //classList -> permite manipular as classes de um elemento HTML de forma simples
 // Close Cart
 closeCart.onclick = () => {
     cart.classList.remove("active")
@@ -17,13 +17,16 @@ if (document.readyState == 'loading') {
     document.addEventListener('DOMContentLoaded', ready)
 } else {
     ready()
-}
+}  //DOMContentLoaded: é acionado quando todo o HTML foi completamente carregado e analisado, sem aguardar pelo CSS.
+   //Prepara o documento para interações
 
 // Making Function
 function ready(){
     // Remove Items From Cart
     var removeCartButtons = document.getElementsByClassName('cart-remove')
+        //imprime a lista de elementos com a classe 'cart-remove' no console
     console.log(removeCartButtons)
+        //FOR -> loop que percorre os elementos da lista
     for (var i = 0; i < removeCartButtons.length; i++){
         var button = removeCartButtons[i]
         button.addEventListener('click', removeCartItem)
@@ -50,6 +53,7 @@ function ready(){
 function buyButtonClicked(){
     // Mensage (alert) when user finish the buy
     alert("Seu pedido foi feito")
+    // Remove all items from cart
     var cartContent = document.getElementsByClassName("cart-content")[0]
     while (cartContent.hasChildNodes()) {
         cartContent.removeChild(cartContent.firstChild)
@@ -67,9 +71,12 @@ function removeCartItem(event) {
     updateCartIcon()
 }
 
-// Quantity Changes
+// Quantity Changes 
+    //(garante que apenas valores numéricos válidos sejam aceitos)
 function quantityChanged(event){
+    //O event.target se refere ao elemento que disparou o evento.
     var input = event.target
+    //isNaN -> se não for um num
     if (isNaN(input.value) || input.value <= 0) {
         input.value = 1
     }
@@ -81,6 +88,7 @@ function quantityChanged(event){
 // Add To Cart
 function addCartClicked(event){
     var button = event.target
+    //parentElement -> obtém o elemento pai do botão clicado
     var shopProducts = button.parentElement
     var title = shopProducts.getElementsByClassName('product-title')[0].innerText
     var price = shopProducts.getElementsByClassName('price')[0].innerText
@@ -94,7 +102,10 @@ function addCartClicked(event){
 function addProductToCart(title, price, productImg){
     var cartShopBox = document.createElement('div')
     cartShopBox.classList.add('cart-box')
+    //Esse elemento é onde os produtos do carrinho são exibidos.
     var cartItems = document.getElementsByClassName('cart-content')[0]
+    //Se encontrar um item com o msm título q o produto q está sendo add, vai pro alert
+    //Evita duplicações no carrinho
     var cartItemsNames = cartItems.getElementsByClassName('cart-product-title')
     for (var i = 0; i < cartItemsNames.length; i++) {
         if (cartItemsNames[i].innerText == title){
@@ -103,6 +114,8 @@ function addProductToCart(title, price, productImg){
             return
         } 
     }
+    //Creates the HTML content for the cart item
+        //O icon "trash" está sendo add aqui
     var cartBoxContent = `
                         <img src="${productImg}" alt="" class="cart-img">
                         <div class="detail-box">
@@ -115,19 +128,22 @@ function addProductToCart(title, price, productImg){
     cartShopBox.innerHTML = cartBoxContent
     cartItems.append(cartShopBox)
 
+    //Adding Events to Buttons:
     cartShopBox.getElementsByClassName('cart-remove')[0]
     .addEventListener('click', removeCartItem)
 
     cartShopBox.getElementsByClassName('cart-quantity')[0]
     .addEventListener('change', quantityChanged)
-    saveCartItems()
+    saveCartItems() //Função do LocalStorage
     updateCartIcon()
 }
 
 // Update Total
 function updatetotal(){
+    // (é responsável por calcular o total dos itens no carrinho de compras e exibi-lo na página)
     var cartContent = document.getElementsByClassName('cart-content')[0]
     var cartBoxes = cartContent.getElementsByClassName('cart-box')
+    //Loop para Calcular o Total:
     var total = 0
     for (var i = 0; i < cartBoxes.length; i++){
         var cartBox = cartBoxes[i]
@@ -149,7 +165,7 @@ function saveCartItems(){
     var cartContent = document.getElementsByClassName('cart-content')[0]
     var cartBoxes = cartContent.getElementsByClassName('cart-box')
     var cartItems = []
-
+    //O loop percorre cada elemento no carrinho e extrai oq se pede
     for (var i = 0; i < cartBoxes.length; i++) {
         cartBox = cartBoxes[i]
         var titleElement = cartBox.getElementsByClassName('cart-product-title')[0]
@@ -163,6 +179,7 @@ function saveCartItems(){
             quantity: quantityElement.value,
             productImg: productImg,
         }
+        //Esses dados são armazenados em um objeto e adicionados ao array 
         cartItems.push(item)
     }
     localStorage.setItem('cartItems', JSON.stringify(cartItems))
@@ -172,7 +189,7 @@ function loadCartItems() {
     var cartItems = localStorage.getItem('cartItems')
     if (cartItems) {
         cartItems = JSON.parse(cartItems)
-
+        
         for(var i = 0; i < cartItems.length; i++) {
             var item = cartItems[i]
             addProductToCart(item.title, item.price, item.productImg)
