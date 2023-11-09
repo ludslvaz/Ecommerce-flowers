@@ -182,7 +182,7 @@ function saveCartItems(){
         //Esses dados são armazenados em um objeto e adicionados ao array 
         cartItems.push(item)
     }
-    localStorage.setItem('cartItems', JSON.stringify(cartItems))
+    localStorage.setItem('cartItems', JSON.stringify(cartItems)) //pega tudo que está no objeto e transforma pra string
 }
 // Loads In Cart 
 function loadCartItems() {
