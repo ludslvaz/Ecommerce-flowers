@@ -208,6 +208,7 @@ function loadCartItems() {
 }
 
 // Quantity In Cart Icon 
+    //A função itera pelos elementos do carrinho e obtém a quantidade de cada item.
 function updateCartIcon() {
     var cartBoxes = document.getElementsByClassName('cart-box')
     var quantity = 0
