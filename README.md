@@ -5,3 +5,5 @@
 ![GitHub forks](https://img.shields.io/github/forks/ludslvaz/Ecommerce-flowers?style=for-the-badge)
 ![Bitbucket open issues](https://img.shields.io/github/issues/ludslvaz/Ecommerce-flowers?style=for-the-badge)
 ![Bitbucket open pull requests](https://img.shields.io/bitbucket/pr-raw/ludslvaz/Ecommerce-flowers?style=for-the-badge)
+
+<img src="/ecommerce_flowers.jpg" alt="E-commerce Flowers img">
