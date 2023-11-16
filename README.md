@@ -38,3 +38,6 @@ Acesse o projeto em produção clicando no botão abaixo:
 ```sh
   $ run with live server
 ```
+## 🚀Quem proporcionou a execução desse projeto?
+O projeto foi desenvolvido no curso de HTML5 e CSS3 do Curso Incode.
+
