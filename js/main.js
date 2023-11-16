@@ -1,70 +1,68 @@
 // Cart
-let cartIcon = document.querySelector('#cart-icon')
-let cart = document.querySelector(".cart")
-let closeCart = document.querySelector('#close-cart')
+const cartIcon = document.querySelector('#cart-icon');
+const cart = document.querySelector(".cart");
+const closeCart = document.querySelector('#close-cart');
 
 // Open Cart
-cartIcon.onclick = () => {
-    cart.classList.add("active")
-}         //classList -> permite manipular as classes de um elemento HTML de forma simples
+cartIcon.addEventListener('click', () => {
+    cart.classList.add("active");
+});
+
 // Close Cart
-closeCart.onclick = () => {
-    cart.classList.remove("active")
-}
+closeCart.addEventListener('click', () => {
+    cart.classList.remove("active");
+});
 
 // Cart Working JS
 if (document.readyState == 'loading') {
-    document.addEventListener('DOMContentLoaded', ready)
+    document.addEventListener('DOMContentLoaded', ready);
 } else {
-    ready()
-}  //DOMContentLoaded: é acionado quando todo o HTML foi completamente carregado e analisado, sem aguardar pelo CSS.
-   //Prepara o documento para interações
+    ready();
+}
 
 // Making Function
-function ready(){
+function ready() {
     // Remove Items From Cart
-    var removeCartButtons = document.getElementsByClassName('cart-remove')
-        //imprime a lista de elementos com a classe 'cart-remove' no console
-    console.log(removeCartButtons)
-        //FOR -> loop que percorre os elementos da lista
-    for (var i = 0; i < removeCartButtons.length; i++){
-        var button = removeCartButtons[i]
-        button.addEventListener('click', removeCartItem)
-    }
+    const removeCartButtons = document.querySelectorAll('.cart-remove');
+    removeCartButtons.forEach((button) => {
+        button.addEventListener('click', removeCartItem);
+    });
 
     // Quantity Changes
-    var quantityInputs = document.getElementsByClassName('cart-quantity')
-    for (var i = 0; i < quantityInputs.length; i++){
-        var input = quantityInputs[i]
-        input.addEventListener("change", quantityChanged)
-    }
+    const quantityInputs = document.querySelectorAll('.cart-quantity');
+    quantityInputs.forEach((input) => {
+        input.addEventListener('change', quantityChanged);
+    });
+
     // Add To Cart
-    var addCart = document.getElementsByClassName('add-cart')
-    for (var i = 0; i < addCart.length; i++) {
-        var button = addCart[i]
-        button.addEventListener("click", addCartClicked)
-    }
+    const addCartButtons = document.querySelectorAll('.add-cart');
+    addCartButtons.forEach((button) => {
+        button.addEventListener('click', addCartClicked);
+    });
+
     // Buy Button Work
-    document.getElementsByClassName('btn-buy')[0]
-    .addEventListener('click', buyButtonClicked)
-    loadCartItems()
+    document.querySelector('.btn-buy').addEventListener('click', buyButtonClicked);
+
+    loadCartItems();
 }
 // Buy Button
 function buyButtonClicked(){
     // Mensage (alert) when user finish the buy
     alert("Seu pedido foi feito")
     // Remove all items from cart
-    var cartContent = document.getElementsByClassName("cart-content")[0]
+    const cartContent = document.querySelector(".cart-content")
     while (cartContent.hasChildNodes()) {
         cartContent.removeChild(cartContent.firstChild)
     }
     updatetotal()
+    updateCartIcon()
+    localStorage.removeItem('cartItems')
+    localStorage.removeItem('cartTotal')
 }
-
 
 // Remove Items From Cart
 function removeCartItem(event) {
-    var buttonClicked = event.target
+    const buttonClicked = event.target
     buttonClicked.parentElement.remove()
     updatetotal()
     saveCartItems()
@@ -75,7 +73,7 @@ function removeCartItem(event) {
     //(garante que apenas valores numéricos válidos sejam aceitos)
 function quantityChanged(event){
     //O event.target se refere ao elemento que disparou o evento.
-    var input = event.target
+    const input = event.target
     //isNaN -> se não for um num
     if (isNaN(input.value) || input.value <= 0) {
         input.value = 1
@@ -87,12 +85,12 @@ function quantityChanged(event){
 
 // Add To Cart
 function addCartClicked(event){
-    var button = event.target
+    const button = event.target
     //parentElement -> obtém o elemento pai do botão clicado
-    var shopProducts = button.parentElement
-    var title = shopProducts.getElementsByClassName('product-title')[0].innerText
-    var price = shopProducts.getElementsByClassName('price')[0].innerText
-    var productImg = shopProducts.getElementsByClassName('product-img')[0].src
+    const shopProducts = button.parentElement
+    const title = shopProducts.querySelector('.product-title').innerText
+    const price = shopProducts.querySelector('.price').innerText
+    const productImg = shopProducts.querySelector('.product-img').src
     addProductToCart(title, price, productImg)
     updatetotal()
     saveCartItems()
@@ -100,23 +98,27 @@ function addCartClicked(event){
 }
 
 function addProductToCart(title, price, productImg){
-    var cartShopBox = document.createElement('div')
+    const cartShopBox = document.createElement('div')
     cartShopBox.classList.add('cart-box')
     //Esse elemento é onde os produtos do carrinho são exibidos.
-    var cartItems = document.getElementsByClassName('cart-content')[0]
+    const cartItems = document.querySelector('.cart-content')
     //Se encontrar um item com o msm título q o produto q está sendo add, vai pro alert
     //Evita duplicações no carrinho
-    var cartItemsNames = cartItems.getElementsByClassName('cart-product-title')
-    for (var i = 0; i < cartItemsNames.length; i++) {
-        if (cartItemsNames[i].innerText == title){
+    let itemAlreadyExists = false
+    const cartItemsNames = cartItems.getElementsByClassName('cart-product-title')
+    Array.from(cartItemsNames).forEach(cartItem => {
+        if (cartItem.innerText == title){
             // Mensage (alert) when user add some product in the cart
             alert('Você adicionou esse produto ao seu carrinho')
-            return
+            itemAlreadyExists = true
         } 
+    })
+    if (itemAlreadyExists) {
+        return // Não executa o restante da função se o item já existir no carrinho.
     }
     //Creates the HTML content for the cart item
         //O icon "trash" está sendo add aqui
-    var cartBoxContent = `
+    const cartBoxContent = `
                         <img src="${productImg}" alt="" class="cart-img">
                         <div class="detail-box">
                             <div class="cart-product-title">${title}</div>
@@ -129,101 +131,114 @@ function addProductToCart(title, price, productImg){
     cartItems.append(cartShopBox)
 
     //Adding Events to Buttons:
-    cartShopBox.getElementsByClassName('cart-remove')[0]
+    cartShopBox.querySelector('.cart-remove')
     .addEventListener('click', removeCartItem)
 
-    cartShopBox.getElementsByClassName('cart-quantity')[0]
+    cartShopBox.querySelector('.cart-quantity')
     .addEventListener('change', quantityChanged)
     saveCartItems() //Função do LocalStorage
     updateCartIcon()
 }
 
 // Update Total
-function updatetotal(){
-    // (é responsável por calcular o total dos itens no carrinho de compras e exibi-lo na página)
-    var cartContent = document.getElementsByClassName('cart-content')[0]
-    var cartBoxes = cartContent.getElementsByClassName('cart-box')
-    //Loop para Calcular o Total:
-    var total = 0
-    for (var i = 0; i < cartBoxes.length; i++){
-        var cartBox = cartBoxes[i]
-        var priceElement = cartBox.getElementsByClassName('cart-price')[0]
-        var quantityElement = cartBox.getElementsByClassName("cart-quantity")[0]
-        var price = parseFloat(priceElement.innerText.replace("$", ""))
-        var quantity = quantityElement.value
-        total += price * quantity
-    }
-    // if price Contain some Cents Value (regular as casas decimais)
-    total = Math.round(total * 100) / 100
-    document.getElementsByClassName('total-price')[0].innerText = "$" + total
+function updatetotal() {
+    const cartContent = document.querySelector('.cart-content');
+    const cartBoxes = cartContent.querySelectorAll('.cart-box');
+    
+    let total = 0;
+
+    cartBoxes.forEach(cartBox => {
+        const priceElement = cartBox.querySelector('.cart-price');
+        const quantityElement = cartBox.querySelector('.cart-quantity');
+        const price = parseFloat(priceElement.innerText.replace("$", ""));
+        const quantity = parseInt(quantityElement.value);
+
+        if(quantity > 4) {
+            alert("Não temos mais este produto em estoque.")
+            quantity = 4;
+        }
+
+        total += price * quantity;
+        
+        //Atualiza a quantidade no elemento HTML
+        quantityElement.value = quantity
+    });
+
+    // if price contains some Cents Value (casas decimais)
+    total = Math.round(total * 100) / 100;
+
+    document.querySelector('.total-price').innerText = "$" + total;
+
     // Save Total To Localstorage
-    localStorage.setItem('cartTotal', total)   
+    localStorage.setItem('cartTotal', total);
 }
 
 // Localstorage
-function saveCartItems(){
-    var cartContent = document.getElementsByClassName('cart-content')[0]
-    var cartBoxes = cartContent.getElementsByClassName('cart-box')
-    var cartItems = []
-    //O loop percorre cada elemento no carrinho e extrai oq se pede
-    for (var i = 0; i < cartBoxes.length; i++) {
-        cartBox = cartBoxes[i]
-        var titleElement = cartBox.getElementsByClassName('cart-product-title')[0]
-        var priceElement = cart.getElementsByClassName('cart-price')[0]
-        var quantityElement = cartBox.getElementsByClassName('cart-quantity')[0]
-        var productImg = cartBox.getElementsByClassName('cart-img')[0].src
+function saveCartItems() {
+    const cartContent = document.querySelector('.cart-content');
+    const cartBoxes = cartContent.querySelectorAll('.cart-box');
+    const cartItems = [];
 
-        var item = {
+    // O loop percorre cada elemento no carrinho e extrai o que se pede
+    cartBoxes.forEach(cartBox => {
+        const titleElement = cartBox.querySelector('.cart-product-title');
+        const priceElement = cartBox.querySelector('.cart-price');
+        const quantityElement = cartBox.querySelector('.cart-quantity');
+        const productImg = cartBox.querySelector('.cart-img').src;
+
+        const item = {
             title: titleElement.innerText,
             price: priceElement.innerText,
             quantity: quantityElement.value,
             productImg: productImg,
-        }
-        //Esses dados são armazenados em um objeto e adicionados ao array 
-        cartItems.push(item)
-    }
-    localStorage.setItem('cartItems', JSON.stringify(cartItems)) //pega tudo que está no objeto e transforma pra string
+        };
+
+        // Esses dados são armazenados em um objeto e adicionados ao array
+        cartItems.push(item);
+    });
+
+    localStorage.setItem('cartItems', JSON.stringify(cartItems)); // Pega tudo que está no objeto e transforma para string
 }
 // Loads In Cart 
 function loadCartItems() {
-    var cartItems = localStorage.getItem('cartItems')
-    if (cartItems) {
-        cartItems = JSON.parse(cartItems)
-        
-        for(var i = 0; i < cartItems.length; i++) {
-            var item = cartItems[i]
-            addProductToCart(item.title, item.price, item.productImg)
+    const cartItems = localStorage.getItem('cartItems');
 
-            var cartBoxes = document.getElementsByClassName('cart-box')
-            var cartBox = cartBoxes[cartBoxes.length - 1]
-            var quantityElement = cartBox.getElementsByClassName('cart-quantity')[0]
-            quantityElement.value = item.quantity
-        }
+    if (cartItems) {
+        const parsedCartItems = JSON.parse(cartItems);
+
+        parsedCartItems.forEach(item => {
+            addProductToCart(item.title, item.price, item.productImg);
+
+            const cartBoxes = document.getElementsByClassName('cart-box');
+            const cartBox = cartBoxes[cartBoxes.length - 1];
+            const quantityElement = cartBox.querySelector('.cart-quantity');
+            quantityElement.value = item.quantity;
+        });
     }
-    var cartTotal = localStorage.getItem('cartTotal')
-    if(cartTotal) {
-        document.getElementsByClassName('total-price')[0].innerText = "$" + cartTotal
+
+    const cartTotal = localStorage.getItem('cartTotal');
+    if (cartTotal) {
+        document.querySelector('.total-price').innerText = "$" + cartTotal;
     }
-    updateCartIcon()
+
+    updateCartIcon();
 }
 
 // Quantity In Cart Icon 
-    //A função itera pelos elementos do carrinho e obtém a quantidade de cada item.
+//A função itera pelos elementos do carrinho e obtém a quantidade de cada item.
 function updateCartIcon() {
-    var cartBoxes = document.getElementsByClassName('cart-box')
-    var quantity = 0
+    const cartBoxes = document.getElementsByClassName('cart-box');
+    let quantity = 0;
 
-    for (var i = 0; i < cartBoxes.length; i++) {
-        var cartBox = cartBoxes[i]
-        var quantityElement = cartBox.getElementsByClassName('cart-quantity')[0]
-        quantity += parseInt(quantityElement.value)
+    Array.from(cartBoxes).forEach(cartBox => {
+        const quantityElement = cartBox.querySelector('.cart-quantity');
+        quantity += parseInt(quantityElement.value);
+    });
 
-    }
-
-    if (quantity == 0) {
+    if (quantity === 0) {
         quantity = 0;
     }
 
-    var cartIcon = document.querySelector('#cart-icon')
-    cartIcon.setAttribute('data-quantity', quantity)
+    const cartIcon = document.querySelector('#cart-icon');
+    cartIcon.setAttribute('data-quantity', quantity);
 }
