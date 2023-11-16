@@ -1,16 +1,7 @@
-# Ecommerce-flowers
+#e-commerce
 
-<span align = "center">
-
-##  BloomNest 💻🌹
-
-</span> 
-
-<p align = "center">
-  Hiii! So good to see you here. 👋 
- <br> Welcome to BloomNest! Here you will find the best flowers!! 🌹🌷🌻</br>
-</p>
-
-<div align = "center">
-    <a href="https://ludslvaz.github.io/Ecommerce-flowers/">Link of gitPages</a>
-</div>
+![GitHub repo size](https://img.shields.io/github/repo-size/ludslvaz/Ecommerce-flowers?style=for-the-badge)
+![GitHub language count](https://img.shields.io/github/languages/count/ludslvaz/Ecommerce-flowers?style=for-the-badge)
+![GitHub forks](https://img.shields.io/github/forks/ludslvaz/Ecommerce-flowers?style=for-the-badge)
+![Bitbucket open issues](https://img.shields.io/bitbucket/issues/ludslvaz/Ecommerce-flowers?style=for-the-badge)
+![Bitbucket open pull requests](https://img.shields.io/bitbucket/pr-raw/ludslvaz/Ecommerce-flowers?style=for-the-badge)
