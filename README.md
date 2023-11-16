@@ -21,3 +21,20 @@ No desafio da semana 10 do módulo 02 do InCode (OxygeniDit), que teve como obje
 Acesse o projeto em produção clicando no botão abaixo:
 
 <a href="https://ludslvaz.github.io/Ecommerce-flowers/" target='_blank'>![Vercel](https://img.shields.io/badge/Deploy-000000?style=for-the-badge&logo=vercel&logoColor=white)</a>
+
+## ▶️Como rodar
+  ### **Pré-requisitos**
+  - Download live server
+  
+ ### **Passo a passo para rodar a aplicação**  
+1. Faça o clone do repositório :
+
+```sh
+  $ git clone https://github.com/ludslvaz/Ecommerce-flowers.git
+```
+
+2. Executando a Aplicação:
+
+```sh
+  $ run with live server
+```
