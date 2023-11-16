@@ -7,3 +7,17 @@
 ![Bitbucket open pull requests](https://img.shields.io/bitbucket/pr-raw/ludslvaz/Ecommerce-flowers?style=for-the-badge)
 
 <img src="/ecommerce_flowers.jpg" alt="E-commerce Flowers img">
+
+>Olá Pessoal, tudo bem?! 😁
+No desafio da semana 10 do módulo 02 do InCode (OxygeniDit), que teve como objetivo fazer com que os estudantes de Front-End fizessem um Ecommerce, página de produtos onde cada produto deveria ter um botão para adicionar ao carrinho da página e ao clicar no carrinho deveria mostrar outra página listando todos os produtos adicionados. Com base nesses critérios, criei o BloomNest 🌹, um site para venda de flores.
+
+## 🛠 Tecnologias utilizadas
+![HTML](https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white)
+![CSS](https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white)
+![Javascript](https://img.shields.io/badge/JavaScript-323330?style=for-the-badge&logo=javascript&logoColor=F7DF1E)
+
+<h3>🔗 Deploy</h3>
+
+Acesse o projeto em produção clicando no botão abaixo:
+
+<a href="https://ludslvaz.github.io/Ecommerce-flowers/" target='_blank'>![Vercel](https://img.shields.io/badge/Deploy-000000?style=for-the-badge&logo=vercel&logoColor=white)</a>
