@@ -41,3 +41,31 @@ Acesse o projeto em produção clicando no botão abaixo:
 ## 🚀Quem proporcionou a execução desse projeto?
 O projeto foi desenvolvido no curso de HTML5 e CSS3 do Curso Incode.
 
+## 👨🏻‍🚀 Autora do projeto
+
+<table>
+      <tr>
+        <td align="center">
+          <a href="https://github.com/ludslvaz">
+            <img
+              style="border-radius: 50%;"
+              src="https://avatars.githubusercontent.com/u/96749476?v=4"
+              width="100px;"
+              alt="github-icon"
+            />
+            <br />
+            <sub>
+              <b>Ludmilla Vaz</b>
+            </sub>
+          </a>
+          <br />
+          <br />
+          <a href="https://www.linkedin.com/in/ludmilla-vaz-93b226217/">
+            <img
+              src="https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white"
+              width="100px"
+            />
+          </a>
+        </td>
+      </tr>
+</table>
